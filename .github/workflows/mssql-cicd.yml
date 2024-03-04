@@ -18,7 +18,7 @@ jobs:
           docker build -t mssql .
 
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.MSSQL }}" | docker login -u "Sarala-thavamani" --password-stdin
+        run: echo "${{ secrets.MSSQL }}" | docker login -u "saralaaa" --password-stdin
 
       - name: Tag Docker Image
         run: docker tag mssql saralaaa/mssql-server:latest
@@ -32,7 +32,7 @@ jobs:
 
     steps:
       - name: Log in to Docker Hub
-        run: echo "${{ secrets.MSSQL }}" | docker login -u "Sarala-thavamani" --password-stdin
+        run: echo "${{ secrets.MSSQL }}" | docker login -u "saralaaa" --password-stdin
 
       - name: Pull Docker Image
         run: docker pull saralaaa/mssql-server:latest
