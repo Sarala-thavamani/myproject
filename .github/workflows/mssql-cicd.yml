@@ -1,0 +1,42 @@
+name: SQL Server CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Build SQL Server Docker Image
+        run: |
+          docker build -t mssql .
+
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.MSSQL }}" | docker login -u "Sarala-thavamani" --password-stdin
+
+      - name: Tag Docker Image
+        run: docker tag mssql saralaaa/mssql-server:latest
+
+      - name: Push Docker Image to Docker Hub
+        run: docker push saralaaa/mssql-server:latest
+
+  deploy:
+    runs-on: ubuntu-latest
+    needs: build
+
+    steps:
+      - name: Log in to Docker Hub
+        run: echo "${{ secrets.MSSQL }}" | docker login -u "Sarala-thavamani" --password-stdin
+
+      - name: Pull Docker Image
+        run: docker pull saralaaa/mssql-server:latest
+
+      - name: Deploy SQL Server Docker Container
+        run: |
+          docker run -d -p 1433:1433 --name mssql-server saralaaa/mssql-server:latest
