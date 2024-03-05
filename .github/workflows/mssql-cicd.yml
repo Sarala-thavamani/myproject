@@ -26,7 +26,7 @@ jobs:
         run: echo "${{ secrets.MSSQL }}" | docker login -u "saralaaa" --password-stdin
 
       - name: Tag Docker Image
-        run: docker tag myproject:latest saralaaa/myproject:latest
+        run: docker tag myproject saralaaa/myproject:latest
 
       - name: Push Docker Image to Docker Hub
         run: docker push saralaaa/myproject:latest
