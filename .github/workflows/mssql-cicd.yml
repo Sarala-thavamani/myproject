@@ -15,17 +15,17 @@ jobs:
 
       - name: Build Docker Image
         run: |
-          docker build -t mssql .
+          docker build -t myproject .
 
       - name: Test Docker Image
         run: |
-          docker run --rm mssql /bin/bash -c "echo 'Database container is running'"
+          docker run --rm myproject /bin/bash -c "echo 'Database container is running'"
 
       - name: Log in to Docker Hub
         run: echo "${{ secrets.MSSQL }}" | docker login -u "saralaaa" --password-stdin
 
       - name: Tag Docker Image
-        run: docker tag mssql saralaaa/myproject:latest
+        run: docker tag myproject saralaaa/myproject:latest
 
       - name: Push Docker Image to Docker Hub
         run: docker push saralaaa/myproject:latest
